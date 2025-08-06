@@ -72,8 +72,8 @@ OWASP_LLM/
 2. **Installation**
    ```bash
    # Clone the repository
-   git clone <repository-url>
-   cd OWASP_LLM
+   git clone https://github.com/not2cleverdotme/OWASP_LLM_Environment.git
+   cd OWASP_LLM_Environment
    
    # Set up environment (creates virtual environment)
    python setup/setup_environment.py
