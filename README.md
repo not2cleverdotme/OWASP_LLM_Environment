@@ -64,18 +64,117 @@ OWASP_LLM/
 
 ## Getting Started
 
-1. **Prerequisites**
-   - Python 3.8+
-   - OpenAI API key (for some demonstrations)
-   - Local LLM setup (optional)
+### **System Requirements**
 
-2. **Installation**
+- **Operating System**: macOS 10.14+, Ubuntu 18.04+, Windows 10+
+- **Python**: 3.8 or higher (3.9+ recommended)
+- **Memory**: 4GB RAM minimum (8GB recommended)
+- **Storage**: 2GB free space
+- **Network**: Internet connection for API calls and package installation
+
+### **Prerequisites**
+
+1. **Python 3.8+ Installation**
+   
+   **macOS:**
    ```bash
-   # Clone the repository
+   # Using Homebrew (recommended)
+   brew install python3
+   
+   # Or download from python.org
+   # https://www.python.org/downloads/
+   ```
+   
+   **Ubuntu/Debian:**
+   ```bash
+   sudo apt update
+   sudo apt install python3 python3-pip python3-venv
+   ```
+   
+   **Windows:**
+   ```bash
+   # Download from python.org
+   # https://www.python.org/downloads/
+   # Make sure to check "Add Python to PATH" during installation
+   ```
+   
+   **Verify Installation:**
+   ```bash
+   python3 --version
+   pip3 --version
+   ```
+
+2. **Git Installation** (if not already installed)
+   
+   **macOS:**
+   ```bash
+   brew install git
+   ```
+   
+   **Ubuntu/Debian:**
+   ```bash
+   sudo apt install git
+   ```
+   
+   **Windows:**
+   ```bash
+   # Download from https://git-scm.com/
+   ```
+
+3. **API Keys** (optional but recommended)
+   - OpenAI API key (for GPT models)
+   - Anthropic API key (for Claude models)
+   - Local LLM setup (Ollama, etc.)
+
+### **Installation**
+
+1. **Clone the Repository**
+   ```bash
    git clone https://github.com/not2cleverdotme/OWASP_LLM_Environment.git
    cd OWASP_LLM_Environment
+   ```
+
+2. **Manual Virtual Environment Setup** (if automatic setup fails)
    
-   # Set up environment (creates virtual environment)
+   **Create Virtual Environment:**
+   ```bash
+   # Option 1: Using python3
+   python3 -m venv owasp_llm_env
+   
+   # Option 2: Using python
+   python -m venv owasp_llm_env
+   
+   # Option 3: If venv module not found
+   pip3 install virtualenv
+   virtualenv owasp_llm_env
+   ```
+   
+   **Activate Virtual Environment:**
+   ```bash
+   # On macOS/Linux:
+   source owasp_llm_env/bin/activate
+   
+   # On Windows:
+   owasp_llm_env\Scripts\activate
+   
+   # Verify activation (should show venv path)
+   which python
+   ```
+   
+   **Install Dependencies:**
+   ```bash
+   # Upgrade pip first
+   pip install --upgrade pip
+   
+   # Install requirements
+   pip install -r requirements.txt
+   ```
+
+3. **Automatic Setup** (recommended)
+   ```bash
+   # Run the automatic setup script
+   python3 setup/setup_environment.py
+   # or
    python setup/setup_environment.py
    ```
 
@@ -116,6 +215,92 @@ OWASP_LLM/
    # 🔍 Run security scanner
    python start.py --scan
    ```
+
+### **Verifying Installation**
+
+After setup, verify everything is working:
+
+```bash
+# 1. Check if virtual environment is active
+which python
+# Should show: /path/to/OWASP_LLM_Environment/owasp_llm_env/bin/python
+
+# 2. Check Python version
+python --version
+# Should be Python 3.8 or higher
+
+# 3. Check if key packages are installed
+python -c "import openai, flask, requests; print('✅ All packages installed')"
+
+# 4. Test the quick start
+python start.py --help
+```
+
+### **Troubleshooting Common Issues**
+
+**Issue: "python command not found"**
+```bash
+# Try these alternatives:
+python3 --version
+python3.11 --version
+python3.10 --version
+
+# If none work, install Python:
+# macOS: brew install python3
+# Ubuntu: sudo apt install python3
+# Windows: Download from python.org
+```
+
+**Issue: "pip command not found"**
+```bash
+# Try these alternatives:
+pip3 --version
+python3 -m pip --version
+
+# Install pip if missing:
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py
+```
+
+**Issue: "venv module not found"**
+```bash
+# Install venv module:
+# Ubuntu/Debian:
+sudo apt install python3-venv
+
+# Or use virtualenv as alternative:
+pip3 install virtualenv
+virtualenv owasp_llm_env
+```
+
+**Issue: "Permission denied" when creating venv**
+```bash
+# Use user installation:
+python3 -m venv --user owasp_llm_env
+
+# Or check directory permissions:
+ls -la
+chmod 755 .
+```
+
+**Issue: "ModuleNotFoundError" after activation**
+```bash
+# Make sure virtual environment is activated:
+source owasp_llm_env/bin/activate  # macOS/Linux
+# owasp_llm_env\Scripts\activate   # Windows
+
+# Reinstall dependencies:
+pip install -r requirements.txt
+```
+
+**Issue: "SSL Certificate errors" during pip install**
+```bash
+# Use trusted host:
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+
+# Or upgrade pip first:
+pip install --upgrade pip
+```
 
 ## Usage Examples
 
@@ -244,14 +429,6 @@ The vulnerable web app (`labs/vulnerable_llm_app.py`) showcases real OWASP LLM T
 - Use only with proper authorization and in controlled environments
 - Follow responsible disclosure practices
 
-## Contributing
-
-We welcome contributions to improve this testing environment:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add new exploits or defenses
-4. Submit a pull request
 
 ## Resources
 
